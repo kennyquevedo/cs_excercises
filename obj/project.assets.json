@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kenny\\OneDrive\\Developer\\C#\\HackerRank_Exercises\\HackerRank_Exercises.csproj",
+      "projectUniqueName": "C:\\Users\\kenny\\OneDrive\\Developer\\HackerRank_Exercises\\CS\\cs_excercises\\HackerRank_Exercises.csproj",
       "projectName": "HackerRank_Exercises",
-      "projectPath": "C:\\Users\\kenny\\OneDrive\\Developer\\C#\\HackerRank_Exercises\\HackerRank_Exercises.csproj",
+      "projectPath": "C:\\Users\\kenny\\OneDrive\\Developer\\HackerRank_Exercises\\CS\\cs_excercises\\HackerRank_Exercises.csproj",
       "packagesPath": "C:\\Users\\kenny\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kenny\\OneDrive\\Developer\\C#\\HackerRank_Exercises\\obj\\",
+      "outputPath": "C:\\Users\\kenny\\OneDrive\\Developer\\HackerRank_Exercises\\CS\\cs_excercises\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\kenny\\AppData\\Roaming\\NuGet\\NuGet.Config",

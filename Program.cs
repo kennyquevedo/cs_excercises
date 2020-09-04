@@ -10,8 +10,18 @@ namespace HackerRank_Exercises
             // SockMerchant sm = new SockMerchant();
             // sm.SockMerchant_StartProcess();
 
-            CountingValleys counting = new CountingValleys();
-            counting.Process();
+            // CountingValleys counting = new CountingValleys();
+            // counting.Process();
+
+            //cardcollection.StartCollection();
+
+            // _ = new CloudGame();
+
+            //_ = new MergeNames();
+
+            // _ = new EnumToStringTest();
+
+            _ = new RepeatedString();
         }
     }
 }

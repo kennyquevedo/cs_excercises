@@ -43,7 +43,7 @@ public class RepeatedString
                 maxCapacity = (int)(numberOfRepeat - int.MaxValue);
                 subStr += new StringBuilder(maxCapacity).Insert(0, s, maxCapacity).ToString();
             }
-            else
+            else if (true)
             {
                 maxCapacity = (int)numberOfRepeat;
                 subStr = new StringBuilder(maxCapacity).Insert(0, s, maxCapacity).ToString();

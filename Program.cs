@@ -21,7 +21,13 @@ namespace HackerRank_Exercises
 
             // _ = new EnumToStringTest();
 
-            _ = new RepeatedString();
+            // _ = new RepeatedString();
+
+            //_ = new CardCollection();
+
+            // _ = new BirthdayCakeCandles();
+
+            _ = new MultipleTasks();
         }
     }
 }

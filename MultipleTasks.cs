@@ -94,7 +94,7 @@ public class MultipleTasks
             //Create a task for each sublist
             var task = new Task(() =>
             {
-                //Loop individual sublist and sleep during 500ms. Show a dot to indicate the process.
+                //Loop individual sublist and sleep during 500ms.
                 foreach (var item in itemList)
                 {
                     Thread.Sleep(500);

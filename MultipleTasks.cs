@@ -52,10 +52,11 @@ public class MultipleTasks
         watch.Start();
 
         var list = GetIndividuals();
+        Console.WriteLine($"Qty Individuals:{list.Count}");
+
         foreach (var item in list)
         {
             Thread.Sleep(500);
-            ClearCurrentConsoleLine();
             Console.Write("\r{0}", item.ToString());
         }
 
@@ -73,16 +74,22 @@ public class MultipleTasks
         watch.Start();
 
         //Get the individual list and split into 3 sublist.
-        var list = GetIndividuals().Select((x, i) => new { Index = i, Value = x })
-                    .GroupBy(x => x.Index / 3)
+        var list = GetIndividuals();
+        int splitNumber = list.Count / 3;
+        Console.WriteLine($"Qty Individuals:{list.Count}");
+        var individuals = list.Select((x, i) => new { Index = i, Value = x })
+                            .GroupBy(x => x.Index / splitNumber)
                                 .Select(x => x.Select(v => v.Value).ToList())
-                                            .ToList();
+                                        .ToList();
 
         //List of tasks to add a task per sublist.
         var taskList = new List<Task>();
 
+        var spin = new ConsoleSpinner();
+        spin.StartSpin();
+
         //loop through list
-        foreach (var itemList in list)
+        foreach (var itemList in individuals)
         {
             //Create a task for each sublist
             var task = new Task(() =>
@@ -91,8 +98,6 @@ public class MultipleTasks
                 foreach (var item in itemList)
                 {
                     Thread.Sleep(500);
-                    ClearCurrentConsoleLine();
-                    Console.Write(".");
                 }
             });
 
@@ -105,6 +110,7 @@ public class MultipleTasks
 
         //wait until complete all tasks.
         Task.WaitAll(taskList.ToArray());
+        spin.StopSpin();
         watch.Stop();
 
         //Write some data to verify the process.
@@ -142,5 +148,40 @@ public class MultipleTasks
         Console.SetCursorPosition(0, Console.CursorTop);
         Console.Write(new string(' ', Console.WindowWidth));
         Console.SetCursorPosition(0, currentLineCursor);
+    }
+
+    public class ConsoleSpinner
+    {
+        int counter;
+        bool spinFlag = true;
+        public void StartSpin()
+        {
+            Task.Run(() =>
+            {
+                while (spinFlag)
+                {
+                    Turn();
+                }
+            });
+        }
+
+        public void StopSpin()
+        {
+            spinFlag = false;
+        }
+
+        private void Turn()
+        {
+            counter++;
+            switch (counter % 4)
+            {
+                case 0: Console.Write("/"); counter = 0; break;
+                case 1: Console.Write("-"); break;
+                case 2: Console.Write("\\"); break;
+                case 3: Console.Write("|"); break;
+            }
+            Thread.Sleep(120);
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+        }
     }
 }

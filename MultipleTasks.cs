@@ -180,7 +180,8 @@ public class MultipleTasks
                 case 2: Console.Write("\\"); break;
                 case 3: Console.Write("|"); break;
             }
-            Thread.Sleep(120);
+
+            //Thread.Sleep(30);
             Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
         }
     }

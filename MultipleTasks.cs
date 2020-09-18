@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 public class MultipleTasks
 {
+    //Represent an indivudal.
     public class Individual
     {
         [JsonPropertyName("id")]
@@ -30,9 +31,12 @@ public class MultipleTasks
         }
     }
 
+    //Constructor.
     public MultipleTasks()
     {
-        Console.Write("Please enter an option [1/One Task] - [2/MultiTask]: ");
+        //Request an option. 1--> Single task, 2 --> multiple tasks.
+        Console.Write("Please enter an option [1/SingleTask] - [2/MultiTask]: ");
+
         var key = Console.ReadLine();
         if (key == "1")
             ProcessIndividuals();
@@ -40,8 +44,10 @@ public class MultipleTasks
             ProcessMultiIndividuals();
     }
 
+    //Loop through individual list.
     public void ProcessIndividuals()
     {
+        //Timer to measure the process.
         Stopwatch watch = new Stopwatch();
         watch.Start();
 
@@ -53,27 +59,35 @@ public class MultipleTasks
             Console.Write("\r{0}", item.ToString());
         }
 
+        //Show some data of the process.
         watch.Stop();
         Console.WriteLine();
         Console.WriteLine($"Time:{(watch.ElapsedMilliseconds).ToString()}");
     }
 
+    //Create sublist from a main list and create a task for each sublist.
     public void ProcessMultiIndividuals()
     {
+        //Timer to measure the process.
         Stopwatch watch = new Stopwatch();
         watch.Start();
 
+        //Get the individual list and split into 3 sublist.
         var list = GetIndividuals().Select((x, i) => new { Index = i, Value = x })
                     .GroupBy(x => x.Index / 3)
                                 .Select(x => x.Select(v => v.Value).ToList())
                                             .ToList();
 
+        //List of tasks to add a task per sublist.
         var taskList = new List<Task>();
 
+        //loop through list
         foreach (var itemList in list)
         {
+            //Create a task for each sublist
             var task = new Task(() =>
             {
+                //Loop individual sublist and sleep during 500ms. Show a dot to indicate the process.
                 foreach (var item in itemList)
                 {
                     Thread.Sleep(500);
@@ -81,18 +95,25 @@ public class MultipleTasks
                     Console.Write(".");
                 }
             });
+
+            //Add current tast to list.
             taskList.Add(task);
+
+            //start current task.
             task.Start();
         }
 
-        Console.WriteLine($"Tasks:{taskList.Count}");
+        //wait until complete all tasks.
         Task.WaitAll(taskList.ToArray());
         watch.Stop();
 
+        //Write some data to verify the process.
         Console.WriteLine();
+        Console.WriteLine($"Tasks:{taskList.Count}");
         Console.WriteLine($"Multi-Time:{(watch.ElapsedMilliseconds).ToString()}");
     }
 
+    //Get a task with the individual list.
     public List<Individual> GetIndividuals()
     {
         Task<List<Individual>> task = ProcessRepositories();
@@ -101,6 +122,8 @@ public class MultipleTasks
         return task.Result;
     }
 
+
+    //Just get an individual list.
     private static async Task<List<Individual>> ProcessRepositories()
     {
         HttpClient client = new HttpClient();
@@ -112,6 +135,7 @@ public class MultipleTasks
         return repositories;
     }
 
+    //Just clean the current console line.
     public static void ClearCurrentConsoleLine()
     {
         int currentLineCursor = Console.CursorTop;
